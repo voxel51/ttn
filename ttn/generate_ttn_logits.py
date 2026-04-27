@@ -25,7 +25,7 @@ def main(args):
     nref_pc = ddg.data["prune"]["nref_per_class"]
     nm = int(nref_pc * ddg.data["prune"]["val_ratio"])
     nk = nref_pc - nm
-    logit_f = f"{out_dir}/ttn-{nk}r.pk"
+    logit_f = f"{out_dir}/ttn-logits-{nk}r.pk"
     if os.path.isfile(logit_f):
         print(f"Logits for {logit_f} already exists. Skipping pruning.")
         return

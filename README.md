@@ -53,7 +53,7 @@ python ttn/generate_ttn_logits.py --data_dir ./data --dataset voc --pseudo_label
 ```
 Recommend setting `--device` to "mps" or "cuda". Can also use paper's detection fine-tuned pruning model using `--prune_model ttnd`.
 
-Output TTN pruning logits will be located in `./data/model/logits`. Paper implementation pruned all pseudo-labels with logit score > 0.
+Output TTN pruning logits will be located in `./data/model/logits`. Paper implementation pruned all pseudo-labels with logit score > 0. Raising the threshold increases recall but lowers precision (e.g., > 0.1).
 
 ## Citation
 

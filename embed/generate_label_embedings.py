@@ -56,7 +56,9 @@ def main(args):
 
         # Only generate patch embeddings if they do not already exist.
         embed_f = os.path.join(embed_dir, fn)
-        if os.path.exists(embed_f): continue
+        if os.path.exists(embed_f): 
+            print(f"{embed_f} already exists, skipping embedding generation.")
+            continue
 
         # Generate patch ebmeddings.
         print(f"Generating {ln} patch embeddings for {dataset}.")

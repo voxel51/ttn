@@ -50,7 +50,7 @@ def main(args):
     load_labels(dataset_fo, pl_dir, label_list, class_list)
 
     # Generate reference label (ground truth) and pseudo-label patch embeddings.
-    embed_f_names = [f"patch_embed_{embed_model}_{s}" 
+    embed_f_names = [f"patch_embed_{embed_model}_{s}.pk" 
                     for s in ["ref", pseudo_label_source]]
     for fn, ln in zip(embed_f_names, ["ground_truth", pseudo_label_source]):
 
@@ -59,6 +59,7 @@ def main(args):
         if os.path.exists(embed_f): continue
 
         # Generate patch ebmeddings.
+        print(f"Generating {ln} patch embeddings for {dataset}.")
         model_fo = load_fo_model(embed_model)
         patch_embeddings = dataset_fo.compute_patch_embeddings(
             model_fo, 

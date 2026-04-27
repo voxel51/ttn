@@ -51,14 +51,14 @@ def main(args):
         pickle.dump(patch_embeddings, open(embed_f, "wb"))
         print(f"{dataset} hl embeddings saved to {embed_f}.")
 
-    # Add pseudo labels to fo dataset.
+    # Add pseudo-labels to fo dataset.
     pl_dir = os.path.join(data_dir, "pseudo-label", dataset, pseudo_label_source)
     load_labels(dataset_fo, pl_dir, label_list, class_list)
 
     # Uncomment the following line for to confirm labels with visualization.
     # session = fo.launch_app(dataset_fo)
 
-    # Generate pseudo label patch embeddings.
+    # Generate pseudo-label patch embeddings.
     embed_name = f"patch_embed_{embed_model}_{pseudo_label_source}"
     embed_f = os.path.join(embed_dir, f"{embed_name}.pk")
     if not os.path.exists(embed_f): 
@@ -78,7 +78,7 @@ def main(args):
                 patch_embeddings[i] = patch_embeddings[sample_id]
             del patch_embeddings[sample_id]
         pickle.dump(patch_embeddings, open(embed_f, "wb"))
-        print(f"{dataset} pseudo label embeddings saved to {embed_f}.")
+        print(f"{dataset} pseudo-label embeddings saved to {embed_f}.")
 
 if __name__ == "__main__":
     

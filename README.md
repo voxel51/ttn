@@ -22,7 +22,7 @@ Implementation for paper "The Label Imitation Game: Turing Test Network for Zero
 
 [FiftyOne](https://github.com/voxel51/fiftyone) dependency to generate paper embeddings (``pip install fiftyone``). Paper detection datasets are formatted as [YOLOv5](https://docs.voxel51.com/user_guide/import_datasets.html#yolov5) (see example `./dataset/voc.yaml`).
 
-Download [example dataset and pseudo labels](https://www.dropbox.com/scl/fi/napaltjo2ayea1ugzvoyy/data.zip?rlkey=781beco6pw5h3pjbwlw5gibjh&st=643dmnw3&dl=0) and unzip to `./data`.
+Download [example dataset and pseudo-labels](https://www.dropbox.com/scl/fi/napaltjo2ayea1ugzvoyy/data.zip?rlkey=781beco6pw5h3pjbwlw5gibjh&st=643dmnw3&dl=0) and unzip to `./data`.
 
 Run
 ```
@@ -31,7 +31,7 @@ python embed/generate_label_embedings.py --data_dir ./data --dataset voc --pseud
 
 Output label patch embeddings for TTN pruning will be located in `./data/embed`.
 
-For custom pseudo label and dataset use, replicate process or provide own `float16` CLIP `ViT-L-14` label patch embeddings for subsequent TTN Pruning.
+For custom pseudo-label and dataset use, replicate process or provide own `float16` CLIP `ViT-L-14` label patch embeddings for subsequent TTN Pruning.
 
 ### TTN Pruning
 

@@ -43,9 +43,17 @@ For custom dataset and pseudo-labels, replicate process or provide own `float16`
 
 **Output:** TTN prune logits.
 
-Note Torch dependency.
+[PyTorch](https://pytorch.org/get-started/locally/) dependency to run TTN model.
 
+Download [TTN models and example reference labels, pseudo-labels, preprocessed embeddings, and filelist](https://www.dropbox.com/scl/fi/hum3q5f0uli9emnp71rp1/data.zip?rlkey=i6jj7prkmwqe3fys4o63ciifx&st=ybne7gir&dl=0) and unzip to `./data`.
 
+Run
+```
+python ttn/generate_ttn_logits.py --data_dir ./data --dataset voc --pseudo_label_source yoloe-11l-seg-conf30 --prune_model ttn --config ./config/ttn_logit.yaml --device cpu
+```
+Recommend setting `--device` to "mps" or "cuda". Can also use paper's detection fine-tuned pruning model using `--prune_model ttnd`.
+
+Output TTN pruning logits will be located in `./data/model/logits`. Paper implementation pruned all pseudo-labels with logit score > 0.
 
 ## Citation
 

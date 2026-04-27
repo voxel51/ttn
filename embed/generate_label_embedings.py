@@ -53,29 +53,30 @@ def main(args):
     embed_f_names = [f"patch_embed_{embed_model}_{s}" 
                     for s in ["ref", pseudo_label_source]]
     for fn, ln in zip(embed_f_names, ["ground_truth", pseudo_label_source]):
+
+        # Only generate patch embeddings if they do not already exist.
         embed_f = os.path.join(embed_dir, fn)
-        # Check if patch embeddings already exist.
-        if not os.path.exists(embed_f): 
+        if os.path.exists(embed_f): continue
 
-            # Generate patch ebmeddings.
-            model_fo = load_fo_model(embed_model)
-            patch_embeddings = dataset_fo.compute_patch_embeddings(
-                model_fo, 
-                ln,
-                batch_size=batch_size,
-                num_workers=num_workers,
-            )
+        # Generate patch ebmeddings.
+        model_fo = load_fo_model(embed_model)
+        patch_embeddings = dataset_fo.compute_patch_embeddings(
+            model_fo, 
+            ln,
+            batch_size=batch_size,
+            num_workers=num_workers,
+        )
 
-            # Translate sample id to idx then save.
-            print("Post processing patch embeddings.")
-            for i, sample_id in tqdm(enumerate(fo_ids)):
-                if type(patch_embeddings[sample_id]) is np.ndarray:
-                    patch_embeddings[i] = patch_embeddings[sample_id].astype(np.float16)
-                else:
-                    patch_embeddings[i] = patch_embeddings[sample_id]
-                del patch_embeddings[sample_id]
-            pickle.dump(patch_embeddings, open(embed_f, "wb"))
-            print(f"{dataset} {ln} patch embeddings saved to {embed_f}.")
+        # Translate sample id to idx then save.
+        print("Post processing patch embeddings.")
+        for i, sample_id in tqdm(enumerate(fo_ids)):
+            if type(patch_embeddings[sample_id]) is np.ndarray:
+                patch_embeddings[i] = patch_embeddings[sample_id].astype(np.float16)
+            else:
+                patch_embeddings[i] = patch_embeddings[sample_id]
+            del patch_embeddings[sample_id]
+        pickle.dump(patch_embeddings, open(embed_f, "wb"))
+        print(f"{dataset} {ln} patch embeddings saved to {embed_f}.")
 
     # Uncomment the following line for to confirm labels with visualization.
     # session = fo.launch_app(dataset_fo)

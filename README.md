@@ -31,6 +31,8 @@ python embed/generate_label_embedings.py --data_dir ./data --dataset voc --pseud
 
 Output label patch embeddings for TTN pruning will be located in `./data/embed`.
 
+For custom pseudo label and dataset use, replicate process or provide own `float16` CLIP `ViT-L-14` label patch embeddings for subsequent TTN Pruning.
+
 ### TTN Pruning
 
 

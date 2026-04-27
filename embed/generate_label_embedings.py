@@ -13,7 +13,6 @@ batch_size = 10
 num_workers = 4
 embed_model = "clip"
 
-
 def main(args):
 
     dataset = args.dataset
@@ -35,50 +34,51 @@ def main(args):
     fo_filepaths = dataset_fo.distinct("filepath")
     fo_ids = dataset_fo.distinct("id")
 
-    # Generate human label (ground truth) patch embeddings.
-    embed_name = f"patch_embed_{embed_model}_hl.pk"
+    # Generate reference filelist for embeddings.
     embed_dir = os.path.join(data_dir, "embed", dataset)
     os.makedirs(embed_dir, exist_ok=True)
-    embed_f = os.path.join(embed_dir, f"{embed_name}.pk")
-    if not os.path.exists(embed_f): 
-        model_fo = load_fo_model(embed_model)
-        patch_embeddings = dataset_fo.compute_embeddings(
-            model_fo, 
-            batch_size=batch_size,
-            num_workers=num_workers,
-        )
-        patch_embeddings = patch_embeddings.astype(np.float16)
-        pickle.dump(patch_embeddings, open(embed_f, "wb"))
-        print(f"{dataset} hl embeddings saved to {embed_f}.")
+    filelist_f = os.path.join(embed_dir, f"{dataset}_fo_filelist.pk")
+    if not os.path.exists(filelist_f): 
+        img_dir = os.path.join(dataset, "images") + "/"
+        file_list = [f.split(img_dir)[-1].replace(".jpg", ".txt") \
+            for f in fo_filepaths]
+        pickle.dump(file_list, open(filelist_f, "wb"))
+        print(f"{dataset} fo filelist saved to {filelist_f}.")
 
     # Add pseudo-labels to fo dataset.
     pl_dir = os.path.join(data_dir, "pseudo-label", dataset, pseudo_label_source)
     load_labels(dataset_fo, pl_dir, label_list, class_list)
 
+    # Generate reference label (ground truth) and pseudo-label patch embeddings.
+    embed_f_names = [f"patch_embed_{embed_model}_{s}" 
+                    for s in ["ref", pseudo_label_source]]
+    for fn, ln in zip(embed_f_names, ["ground_truth", pseudo_label_source]):
+        embed_f = os.path.join(embed_dir, fn)
+        # Check if patch embeddings already exist.
+        if not os.path.exists(embed_f): 
+
+            # Generate patch ebmeddings.
+            model_fo = load_fo_model(embed_model)
+            patch_embeddings = dataset_fo.compute_patch_embeddings(
+                model_fo, 
+                ln,
+                batch_size=batch_size,
+                num_workers=num_workers,
+            )
+
+            # Translate sample id to idx then save.
+            print("Post processing patch embeddings.")
+            for i, sample_id in tqdm(enumerate(fo_ids)):
+                if type(patch_embeddings[sample_id]) is np.ndarray:
+                    patch_embeddings[i] = patch_embeddings[sample_id].astype(np.float16)
+                else:
+                    patch_embeddings[i] = patch_embeddings[sample_id]
+                del patch_embeddings[sample_id]
+            pickle.dump(patch_embeddings, open(embed_f, "wb"))
+            print(f"{dataset} {ln} patch embeddings saved to {embed_f}.")
+
     # Uncomment the following line for to confirm labels with visualization.
     # session = fo.launch_app(dataset_fo)
-
-    # Generate pseudo-label patch embeddings.
-    embed_name = f"patch_embed_{embed_model}_{pseudo_label_source}"
-    embed_f = os.path.join(embed_dir, f"{embed_name}.pk")
-    if not os.path.exists(embed_f): 
-        model_fo = load_fo_model(embed_model)
-        patch_embeddings = dataset_fo.compute_patch_embeddings(
-            model_fo, 
-            pseudo_label_source,
-            batch_size=batch_size,
-            num_workers=num_workers,
-        )
-        # Translate sample id to idx then save.
-        print("Post processing patch embeddings.")
-        for i, sample_id in tqdm(enumerate(fo_ids)):
-            if type(patch_embeddings[sample_id]) is np.ndarray:
-                patch_embeddings[i] = patch_embeddings[sample_id].astype(np.float16)
-            else:
-                patch_embeddings[i] = patch_embeddings[sample_id]
-            del patch_embeddings[sample_id]
-        pickle.dump(patch_embeddings, open(embed_f, "wb"))
-        print(f"{dataset} pseudo-label embeddings saved to {embed_f}.")
 
 if __name__ == "__main__":
     

@@ -20,6 +20,8 @@ Implementation for paper "The Label Imitation Game: Turing Test Network for Zero
 
 ### Embedding Generation
 
+[FiftyOne](https://github.com/voxel51/fiftyone) dependency to generate paper embeddings (``pip install fiftyone``). Paper detection datasets are formatted as [YOLOv5](https://docs.voxel51.com/user_guide/import_datasets.html#yolov5) (see example `./dataset/voc.yaml`).
+
 Download [example dataset and pseudo labels](https://www.dropbox.com/scl/fi/napaltjo2ayea1ugzvoyy/data.zip?rlkey=781beco6pw5h3pjbwlw5gibjh&st=643dmnw3&dl=0) and unzip to `./data`.
 
 Run
@@ -45,4 +47,3 @@ If you find this code useful, please consider citing our paper (will add link an
   year={2026}
 }
 ```
-

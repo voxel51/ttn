@@ -14,9 +14,10 @@
 
 Implementation for paper "The Label Imitation Game: Turing Test Network for Zero-Shot Pseudo-Label Pruning"
 
-## Using TTN
+![alt text](./figure/overview.jpeg?raw=true "TTN Overview")
+**Zero-Shot Pseudo-Label Pruning:** A single Turing Test Network (TTN) trained strictly on image-classification (bottom) finds and rejects systemic VLM hallucinations across diverse detection datasets and pseudo-label architectures (top) while accepting accurate labels (middle). TTN rejects labels for spatial inaccuracy (**A**), semantic inconsistency (**B**), or both (**C**). Visualizations generated using [FiftyOne](https://github.com/voxel51/fiftyone).
 
-(in progress)
+## Using TTN
 
 ### Embedding Generation
 
@@ -55,9 +56,19 @@ Recommend setting `--device` to "mps" or "cuda". Can also use paper's detection 
 
 Output TTN pruning logits will be located in `./data/model/logits`. Paper implementation pruned all pseudo-labels with logit score > 0. Raising the threshold increases recall but lowers precision (e.g., > 0.1).
 
+## Training TTN
+
+(in progress)
+
+### Training TTN on Image Classification Datasets
+
+**Input:** Preprocessed image embeddings and labels.
+
+**Output:** TTN model weights.
+
 ## Citation
 
-If you find this code useful, please consider citing our paper (will add link and accurate bibtex soon):
+If you find this code useful, please consider citing our paper (will add paper pdf link soon):
 
 ```bibtex
 @inproceedings{griffin26eccv,
@@ -67,3 +78,7 @@ If you find this code useful, please consider citing our paper (will add link an
   year={2026}
 }
 ```
+
+## Feature Request
+
+The paper's full TTN benchmark framework is quite extensive. If there is a feature missing that you would like to implement, please create a request (as an issue is fine) and we will address when able. Cheers!

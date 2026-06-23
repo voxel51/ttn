@@ -1,0 +1,6 @@
+embed_f: patch_embed_clip
+data:
+  prune:
+    nref_per_class: 100 # Assumes train/val split, with train split reused for prune logit generation.
+    val_ratio: 0.2 # train/val split ratio. If 0, all available references used for prune logit generation.
+    batch_size: 512

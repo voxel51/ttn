@@ -60,10 +60,10 @@ Output TTN pruning logits will be located in `./data/model/logits`. Paper implem
 If you find this code useful, please consider citing our paper (will add link and accurate bibtex soon):
 
 ```bibtex
-@article{Griffin_2026_TTN,
+@inproceedings{griffin26eccv,
   author={Griffin, Brent A. and Corso, Jason J.},
   title={The Label Imitation Game: Turing Test Network for Zero-Shot Pseudo-Label Pruning},
-  journal={arXiv preprint},
+  booktitle={The European Conference on Computer Vision (ECCV)},
   year={2026}
 }
 ```

@@ -21,10 +21,11 @@ Implementation for paper "The Label Imitation Game: Turing Test Network for Zero
 
 ### Embedding Generation
 
-**Input:** YOLOv5-formatted dataset and pseudo-labels.
+**Input:** YOLOv5-formatted dataset and pseudo-labels.  
 **Output:** Reference embeddings, pseudo-label embeddings, and filelist.
 
-[FiftyOne](https://github.com/voxel51/fiftyone) dependency to generate paper embeddings (``pip install fiftyone``). Paper detection datasets are formatted as [YOLOv5](https://docs.voxel51.com/user_guide/import_datasets.html#yolov5) (see example `./dataset/voc.yaml`).
+[FiftyOne](https://github.com/voxel51/fiftyone) dependency to generate paper embeddings (``pip install fiftyone``).  
+Paper detection datasets are formatted as [YOLOv5](https://docs.voxel51.com/user_guide/import_datasets.html#yolov5) (see example `./dataset/voc.yaml`).
 
 Download [example dataset and pseudo-labels](https://www.dropbox.com/scl/fi/napaltjo2ayea1ugzvoyy/data.zip?rlkey=781beco6pw5h3pjbwlw5gibjh&st=643dmnw3&dl=0), unzip to `./data`, and run:
 ```
@@ -36,7 +37,7 @@ For custom dataset and pseudo-labels, replicate process or provide own `float16`
 
 ### TTN Pruning
 
-**Input:** Reference labels, pseudo-labels, preprocessed embeddings, and filelist.
+**Input:** Reference labels, pseudo-labels, preprocessed embeddings, and filelist.  
 **Output:** TTN prune logits.
 
 [PyTorch](https://pytorch.org/get-started/locally/) dependency to run TTN model.
@@ -53,7 +54,7 @@ Output TTN pruning logits will be located in `./data/model/logits`. Paper implem
 
 ### Training TTN on Image Classification Datasets
 
-**Input:** Preprocessed image embeddings and labels.
+**Input:** Preprocessed image embeddings and labels.  
 **Output:** TTN model weights.
 
 [PyTorch](https://pytorch.org/get-started/locally/) dependency to train TTN model.

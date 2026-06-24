@@ -15,7 +15,7 @@
 Implementation for paper "The Label Imitation Game: Turing Test Network for Zero-Shot Pseudo-Label Pruning"
 
 ![alt text](./figure/overview.jpeg?raw=true "TTN Overview")
-**Zero-Shot Pseudo-Label Pruning:** A single Turing Test Network (TTN) trained strictly on image-classification (bottom) finds and rejects systemic VLM hallucinations across diverse detection datasets and pseudo-label architectures (top) while accepting accurate labels (middle). TTN rejects labels for spatial inaccuracy (**A**), semantic inconsistency (**B**), or both (**C**). Visualizations generated using [FiftyOne](https://github.com/voxel51/fiftyone).
+**Zero-Shot Pseudo-Label Pruning:** A single Turing Test Network (TTN) trained strictly on image classification (bottom) finds and rejects systemic VLM hallucinations across diverse detection datasets and pseudo-label architectures (top) while accepting accurate labels (middle). TTN rejects labels for spatial inaccuracy (**A**), semantic inconsistency (**B**), or both (**C**). Visualizations generated using [FiftyOne](https://github.com/voxel51/fiftyone).
 
 ## Using TTN
 
@@ -58,13 +58,23 @@ Output TTN pruning logits will be located in `./data/model/logits`. Paper implem
 
 ## Training TTN
 
-(in progress)
-
 ### Training TTN on Image Classification Datasets
 
 **Input:** Preprocessed image embeddings and labels.
 
 **Output:** TTN model weights.
+
+[PyTorch](https://pytorch.org/get-started/locally/) dependency to train TTN model.
+
+Download [preprocessed image classification dataset embeddings and labels](https://www.dropbox.com/scl/fi/2cx1xtdb83nrrznzswjj5/data.zip?rlkey=7d6fq7ki5qvqitpok0y5ii0z4&st=xl05kqni&dl=0) and unzip to `./data`.
+
+Run
+```
+python ttn/cl_ttn_class_model_train.py --data_dir ./data --set 1 2 3 4 5 6 7 8 --config ./config/ttn_class_model.yaml --trial 1 --device cpu
+```
+Recommend setting `--device` to "mps" or "cuda".
+
+Output TTN training weights and logs will be located in `./data/model/weights/ttn-clip-1`.
 
 ## Citation
 

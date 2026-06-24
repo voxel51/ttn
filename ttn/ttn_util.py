@@ -1,5 +1,6 @@
 from copy import deepcopy
 from datetime import datetime
+import matplotlib.pyplot as plt
 import numpy as np
 import os
 import pickle
@@ -160,6 +161,19 @@ def print_to_text(
         output_file.write(statement)
 
     output_file.close()
+
+def plot_train_val_ddg(log_data):
+    x = np.array(log_data["epoch"])
+    plt.plot(x, np.array(log_data["loss"]), label="loss", color="k")
+    plt.plot(x, np.array(log_data["val"]), label="val", color="r")
+    plt.legend(loc="upper left")
+    plt.twinx()
+    plt.plot(x, np.array(log_data["g_acc"]), label="ooc_acc", color="g")
+    plt.plot(x, np.array(log_data["d_acc"]), label="ic_acc", color="b")
+    plt.legend(loc="upper right")
+    plt.grid()
+    plt.savefig(log_data["plot_f"])
+    plt.close()
 
 def inference_logits(model, emb, embr, bat_sz=500):
     # Find logits for all embeddings given the reference embeddings.

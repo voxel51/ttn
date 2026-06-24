@@ -1,0 +1,44 @@
+exp_name: ttn-class
+machine:
+  num_w: 2
+  prefetch_factor: 4
+train:
+  batch_size: 256
+  learning_rate: 0.005
+  weight_decay: 0.0005
+  val_rate: 500
+  epochs: 100000
+  set_size_per_epoch: 1000
+  pos_weight: 1
+data:
+  prob_fail: 0.5
+  val_ratio: 0.2
+  ntrain_per_class: 10000000
+  set_1:
+    dataset: cifar10
+  set_2:
+    dataset: cifar100
+  set_3:
+    dataset: imagenet
+  set_4:
+    dataset: vtid2
+  set_5:
+    dataset: food101
+  set_6:
+    dataset: indoorscenes
+  set_7:
+    dataset: fashionmnist
+  set_8:
+    dataset: eurosat
+model:
+  embed_model: clip
+  dropout: 0.2
+  nembd: 512
+  tkn_fc: 1024
+  nhead: 8
+  nlayer: 8
+  nselect: 1
+  nref: 10
+  msk_attn: False
+  freeze_token_embd: False
+  freeze_token_dropout: True

@@ -22,33 +22,26 @@ Implementation for paper "The Label Imitation Game: Turing Test Network for Zero
 ### Embedding Generation
 
 **Input:** YOLOv5-formatted dataset and pseudo-labels.
-
 **Output:** Reference embeddings, pseudo-label embeddings, and filelist.
 
 [FiftyOne](https://github.com/voxel51/fiftyone) dependency to generate paper embeddings (``pip install fiftyone``). Paper detection datasets are formatted as [YOLOv5](https://docs.voxel51.com/user_guide/import_datasets.html#yolov5) (see example `./dataset/voc.yaml`).
 
-Download [example dataset and pseudo-labels](https://www.dropbox.com/scl/fi/napaltjo2ayea1ugzvoyy/data.zip?rlkey=781beco6pw5h3pjbwlw5gibjh&st=643dmnw3&dl=0) and unzip to `./data`.
-
-Run
+Download [example dataset and pseudo-labels](https://www.dropbox.com/scl/fi/napaltjo2ayea1ugzvoyy/data.zip?rlkey=781beco6pw5h3pjbwlw5gibjh&st=643dmnw3&dl=0), unzip to `./data`, and run:
 ```
 python embed/generate_label_embedings.py --data_dir ./data --dataset voc --pseudo_label_source yoloe-11l-seg-conf30
 ```
 
 Output label patch embeddings and corresponding filelist for TTN pruning will be located in `./data/embed`.
-
 For custom dataset and pseudo-labels, replicate process or provide own `float16` CLIP `ViT-L-14` label patch embeddings for subsequent TTN Pruning.
 
 ### TTN Pruning
 
 **Input:** Reference labels, pseudo-labels, preprocessed embeddings, and filelist.
-
 **Output:** TTN prune logits.
 
 [PyTorch](https://pytorch.org/get-started/locally/) dependency to run TTN model.
 
-Download [TTN models and example reference labels, pseudo-labels, preprocessed embeddings, and filelist](https://www.dropbox.com/scl/fi/hum3q5f0uli9emnp71rp1/data.zip?rlkey=i6jj7prkmwqe3fys4o63ciifx&st=ybne7gir&dl=0) and unzip to `./data`.
-
-Run
+Download [TTN models and example reference labels, pseudo-labels, preprocessed embeddings, and filelist](https://www.dropbox.com/scl/fi/hum3q5f0uli9emnp71rp1/data.zip?rlkey=i6jj7prkmwqe3fys4o63ciifx&st=ybne7gir&dl=0), unzip to `./data`, and run:
 ```
 python ttn/generate_ttn_logits.py --data_dir ./data --dataset voc --pseudo_label_source yoloe-11l-seg-conf30 --prune_model ttn --config ./config/ttn_logit.yaml --device cpu
 ```
@@ -61,14 +54,11 @@ Output TTN pruning logits will be located in `./data/model/logits`. Paper implem
 ### Training TTN on Image Classification Datasets
 
 **Input:** Preprocessed image embeddings and labels.
-
 **Output:** TTN model weights.
 
 [PyTorch](https://pytorch.org/get-started/locally/) dependency to train TTN model.
 
-Download [preprocessed image classification dataset embeddings and labels](https://www.dropbox.com/scl/fi/2cx1xtdb83nrrznzswjj5/data.zip?rlkey=7d6fq7ki5qvqitpok0y5ii0z4&st=xl05kqni&dl=0) and unzip to `./data`.
-
-Run
+Download [preprocessed image classification dataset embeddings and labels](https://www.dropbox.com/scl/fi/2cx1xtdb83nrrznzswjj5/data.zip?rlkey=7d6fq7ki5qvqitpok0y5ii0z4&st=xl05kqni&dl=0), unzip to `./data`, and run:
 ```
 python ttn/cl_ttn_class_model_train.py --data_dir ./data --set 1 2 3 4 5 6 7 8 --config ./config/ttn_class_model.yaml --trial 1 --device cpu
 ```

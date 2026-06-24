@@ -31,7 +31,8 @@ Download [example dataset and pseudo-labels](https://www.dropbox.com/scl/fi/napa
 ```
 python embed/generate_label_embedings.py --data_dir ./data --dataset voc --pseudo_label_source yoloe-11l-seg-conf30
 ```
-Output label patch embeddings and corresponding filelist for TTN pruning will be located in `./data/embed`.  
+Output label patch embeddings and corresponding filelist for TTN pruning will be located in `./data/embed`.
+
 For custom dataset and pseudo-labels, replicate process or provide own `float16` CLIP `ViT-L-14` label patch embeddings for subsequent TTN Pruning.
 
 ### TTN Pruning
@@ -46,7 +47,7 @@ Download [TTN models and example reference labels, pseudo-labels, preprocessed e
 python ttn/generate_ttn_logits.py --data_dir ./data --dataset voc --pseudo_label_source yoloe-11l-seg-conf30 --prune_model ttn --config ./config/ttn_logit.yaml --device cpu
 ```
 Recommend setting `--device` to "mps" or "cuda".  
-Can also use paper's detection fine-tuned pruning model using `--prune_model ttnd`.
+Can also use paper's detection fine-tuned pruning model using `--prune_model ttnd`.  
 Output TTN pruning logits will be located in `./data/model/logits`.  
 Paper implementation pruned all pseudo-labels with logit score > 0. Raising the threshold increases recall but lowers precision (e.g., > 0.1).
 

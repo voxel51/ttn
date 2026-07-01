@@ -12,7 +12,7 @@
 
 </div>
 
-Implementation for paper "The Label Imitation Game: Turing Test Network for Zero-Shot Pseudo-Label Pruning"
+Implementation for paper "[The Label Imitation Game: Turing Test Network for Zero-Shot Pseudo-Label Pruning](https://arxiv.org/pdf/2606.30875)"
 
 ![alt text](./figure/overview.jpeg?raw=true "TTN Overview")
 **Zero-Shot Pseudo-Label Pruning:** A single Turing Test Network (TTN) trained strictly on image classification (bottom) finds and rejects systemic VLM hallucinations across diverse detection datasets and pseudo-label architectures (top) while accepting accurate labels (middle). TTN rejects labels for spatial inaccuracy (**A**), semantic inconsistency (**B**), or both (**C**). Visualizations generated using [FiftyOne](https://github.com/voxel51/fiftyone).
@@ -69,7 +69,7 @@ Output TTN training weights and logs will be located in `./data/model/weights/tt
 
 ## Citation
 
-If you find this code useful, please consider citing our paper (will add paper pdf link soon):
+If you find this code useful, please consider citing our [paper](https://arxiv.org/pdf/2606.30875):
 
 ```bibtex
 @inproceedings{griffin26eccv,

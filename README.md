@@ -79,6 +79,9 @@ If you find this code useful, please consider citing our [paper](https://arxiv.o
   year={2026}
 }
 ```
+__ECCV 2026 presentation video:__ https://youtu.be/TAhlWZhSm4c
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/TAhlWZhSm4c/0.jpg)](https://youtu.be/TAhlWZhSm4c)
 
 ## Feature Request
 

@@ -70,7 +70,6 @@ Output TTN training weights and logs will be located in `./data/model/weights/tt
 ## Citation
 
 If you find this code useful, please consider citing our [paper](https://arxiv.org/pdf/2606.30875):
-
 ```bibtex
 @inproceedings{griffin26eccv,
   author={Griffin, Brent A. and Corso, Jason J.},
@@ -80,7 +79,6 @@ If you find this code useful, please consider citing our [paper](https://arxiv.o
 }
 ```
 __ECCV 2026 presentation video:__ https://youtu.be/TAhlWZhSm4c
-
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/TAhlWZhSm4c/0.jpg)](https://youtu.be/TAhlWZhSm4c)
 
 ## Feature Request
